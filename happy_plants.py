@@ -176,9 +176,9 @@ TIME_LAPSE = os.path.join(IMG_DIR,"timelapse")
 def captureTimelapse():
     c = cv2.VideoCapture(0)
     #prune some black startup frames
-    for i in range(100):
+    for i in range(30):
         flag,img = c.read()
-    cv2.imwrite(img,os.path.join(TIME_LAPSE,datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S.jpg")))
+    cv2.imwrite(os.path.join(TIME_LAPSE,datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S.jpg")),img)
     
                                  
 
