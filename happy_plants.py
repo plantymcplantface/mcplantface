@@ -5,8 +5,10 @@ import time
 import math
 import subprocess
 from contextlib import contextmanager
+import os
 
 import RPIO
+import cv2
 
 def reset():
     RPIO.cleanup()
@@ -166,6 +168,19 @@ interpreter.exited=False
 
 def quit():
     print "use ctrl-D instead"
+
+DATA_DIR = "../happy-plant-data"
+IMG_DIR = os.path.join(DATA_DIR,"images")
+TIME_LAPSE = os.path.join(IMG_DIR,"timelapse")
+
+def captureTimelapse():
+    c = cv2.VideoCapture(0)
+    #prune some black startup frames
+    for i in range(100):
+        flag,img = c.read()
+    cv2.imwrite(img,os.path.join(TIME_LAPSE,datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S.jpg")))
+    
+                                 
 
 if __name__=="__main__":
     import datetime
