@@ -201,6 +201,9 @@ if __name__=="__main__":
         schedule.every().day.at("%d:30"%((wakeUp+i)%24)).do(spray)
         print "spray time %d:00"%((wakeUp+i)%24)
         print "spray time %d:30"%((wakeUp+i)%24)
+    for i in range(lightHours):
+        schedule.every().day.at("%d:15"%((wakeUp+i)%24)).do(captureTimelapse())
+        schedule.every().day.at("%d:45"%((wakeUp+i)%24)).do(captureTimelapse())
     l = True
     import threading
     interpThread = threading.Thread(target=interpreter)
