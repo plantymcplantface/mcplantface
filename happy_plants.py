@@ -180,6 +180,9 @@ def captureTimelapse():
         flag,img = c.read()
     cv2.imwrite(os.path.join(TIME_LAPSE,datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S.jpg")),img)
     
+def saveTemperature():
+    os.system("/home/pi/temperv14/temperv14 >> /home/pi/happy-plant-data/temperature/thermometer")
+    time.sleep(10)#wait 10 seconds so that this doesn't interfere with other usb stuff
                                  
 
 if __name__=="__main__":
@@ -191,6 +194,8 @@ if __name__=="__main__":
     sprayerOff()
 
     import schedule
+    #temperature log:
+    schedule.every(1).minutes.do(saveTemperature)
     wakeUp = 6 #hour of the day
     lightHours = 19
     schedule.every().day.at("%d:00"%wakeUp).do(morning)
