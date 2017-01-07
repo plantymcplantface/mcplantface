@@ -201,11 +201,12 @@ if __name__=="__main__":
     schedule.every().day.at("%d:00"%wakeUp).do(morning)
     schedule.every().day.at("%d:00"%((wakeUp+lightHours)%24)).do(evening)
     print "on time %d:00, off time %d:00"%(wakeUp,(wakeUp+lightHours)%24)
-    for i in range(lightHours-1):#dry out for an hour before bedtime
-        schedule.every().day.at("%d:00"%((wakeUp+i)%24)).do(spray)
-        #schedule.every().day.at("%d:30"%((wakeUp+i)%24)).do(spray)
-        print "spray time %d:00"%((wakeUp+i)%24)
-        #print "spray time %d:30"%((wakeUp+i)%24)
+    for i in range(lightHours-1):
+        if i %4 == 0:
+            schedule.every().day.at("%d:00"%((wakeUp+i)%24)).do(spray)
+            #schedule.every().day.at("%d:30"%((wakeUp+i)%24)).do(spray)
+            print "spray time %d:00"%((wakeUp+i)%24)
+            #print "spray time %d:30"%((wakeUp+i)%24)
     for i in range(lightHours):
         schedule.every().day.at("%d:15"%((wakeUp+i)%24)).do(captureTimelapse)
         schedule.every().day.at("%d:45"%((wakeUp+i)%24)).do(captureTimelapse)
